@@ -28,10 +28,17 @@ public class Shotgun : Gun
                     {
                         Debug.DrawLine(transform.position, hit.point, Color.green, 0.05f);
                     }
+
+                    //trails
+                    TrailRenderer trail = Instantiate(bullet_trail, shoot_point.position, Quaternion.identity);
+                    StartCoroutine(SpawnTrail(trail, dir, hit));
                 }
 
                 ammo_in_clip--;
                 if (ammo_in_clip <= 0) ammo_in_clip = gunData.ammo_per_clip;
+
+                //muzzle flash
+                muzzle_flash.Play();
             }
         }
     }
